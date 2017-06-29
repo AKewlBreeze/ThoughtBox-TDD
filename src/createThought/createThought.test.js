@@ -5,15 +5,15 @@ import CreateThought from './createThought.js';
 
 describe('CreateThought', () => {
 
-  it.skip('has a two input field', () => {
+  it('has two input fields', () => {
     const wrapper = shallow(
       <CreateThought />
     );
 
-    expect(wrapper.find('input').length).toEqual(2);
+    expect(wrapper.find('input').length).toBe(2)
   });
 
-  it.skip('fires onChange on first input which should update state & input field', () => {
+  it('fires onChange on first input which should update state & input field', () => {
     const wrapper = mount(<CreateThought/>);
     const input = wrapper.find('input').first();
     const expectedState = {
@@ -26,39 +26,47 @@ describe('CreateThought', () => {
     expect(wrapper.state()).toEqual(expectedState);
   });
 
-  it.skip('fires onChange on second input which should update state & input field', () => {
+  it('fires onChange on second input which should update state & input field', () => {
     const wrapper = mount(<CreateThought/>);
-    const input = wrapper.find('input').last();
+    const input = wrapper.find('#body');
+    input.simulate('change', {target: {value: 'abc'}});
+
     const expectedState = {
-      title: '',
+      title:'',
       body: 'abc'
-    };
-    input.simulate('change', { target: { value: 'abc' } });
+    }
 
     expect(input.node.value).toEqual('abc');
     expect(wrapper.state()).toEqual(expectedState);
   });
 
-  it.skip('has a submit button', () => {
+  it('has a submit button', () => {
     const wrapper = shallow(
       <CreateThought />
     );
-
-    expect(wrapper.find('button').length).toEqual(1);
+    expect(wrapper.find('button').length).toBe(1);
   });
 
-  it.skip('fires submitIdea function with the state object while confirming that input fields go back to empty strings', () => {
-    const mockedSubmit = jest.fn();
+  it('fires submitIdea function with the state object while confirming that input fields go back to empty strings', () => {
+    const mockedFn = jest.fn();
+
     const wrapper = mount(
-      <CreateThought createThought={mockedSubmit} />
+      <CreateThought submitIdea={mockedFn}/>
     );
+    const idea = {title: 'woot', body: 'yess'}
+    wrapper.setState(idea)
+    const button = wrapper.find('button')
+    button.simulate('click')
     const expectedState = {
-      title: '',
-      body: ''
-    };
-    const input = wrapper.find('input').last();
-    input.simulate('change', { target: { value: 'abc' } });
-    wrapper.find('button').simulate('click');
+      title:'',
+      body:''
+    }
+    expect(wrapper.state()).toEqual(expectedState);
+    expect(mockedFn).toHaveBeenCalledTimes(1)
+    expect(mockedFn).toHaveBeenCalledWith(idea)
+  });
+
+
 
 
     // What input field are we trying to target? What is the action we want to simulate?
@@ -66,7 +74,7 @@ describe('CreateThought', () => {
     // Find the DOM element you want to click on and click on that thing
 
     // Expect that the value of the input node equals a string
-  });
+  // });
 
 
 
