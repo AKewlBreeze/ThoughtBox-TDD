@@ -16,8 +16,8 @@ describe('ThoughtCard', () => {
     const wrapper = shallow(
       <ThoughtCard />
     )
-    expect(wrapper.find('.title', ).length).toEqual(1)
-    expect(wrapper.find('.body', ).length).toEqual(1)
+    expect(wrapper.find('.title').length).toEqual(1)
+    expect(wrapper.find('.body').length).toEqual(1)
   });
 
 });

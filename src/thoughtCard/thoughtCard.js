@@ -1,12 +1,15 @@
+
 import React from 'react';
 
-export const ThoughtCard = () => {
+const ThoughtCard = ({title, body}) => {
   return (
     <div>
       <div className = 'thoughtCard'>
-        <h1 className = 'title'></h1>
-        <h2 className = 'body'></h2>
+        <h1 className = 'title'>{title}</h1>
+        <h2 className = 'body'>{body}</h2>
       </div>
     </div>
   )
 }
+
+export default ThoughtCard

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes, { func, string } from 'prop-types'
 
 export default class CreateThought extends Component {
   constructor(){
@@ -10,10 +11,10 @@ export default class CreateThought extends Component {
   }
 
   handleClick(){
-    this.props.submitIdea(this.state);
+    this.props.handleSubmit(this.state);
     this.setState({title: '', body:''})
   }
-  
+
   render() {
     return(
       <div>
@@ -21,9 +22,12 @@ export default class CreateThought extends Component {
 
       <input value={this.state.body} id='body' onChange={(e)=> this.setState({body: e.target.value})}/>
 
-      <button onClick = {()=>this.handleClick()}> Submit </button>
+      <button className = 'submit' onClick = {()=>this.handleClick()}> Submit </button>
       </div>
     );
   }
+}
 
+CreateThought.propTypes = {
+  handleSubmit: func
 }
